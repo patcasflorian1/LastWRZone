@@ -1,0 +1,2 @@
+# LastWRZone
+ appMonitorizare
