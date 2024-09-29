@@ -158,9 +158,9 @@ for(Cookie cookie : cookies){
                 </a>
               <div class="collapse" id="ui-basic">
                   <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="<c:url value="view-company.htm"></c:url>">Profil Societate</a></li>
-                   <li class="nav-item"> <a class="nav-link" href="<c:url value="user-list.htm"></c:url>">Utilizatori Sistem</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="home-superadmin.htm"> ListaLocatii</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="<c:url value="admin-view-company.htm"></c:url>">Profil Societate</a></li>
+                  <li class="nav-item"> <a class="nav-link" href="<c:url value="admin-user-list.htm"></c:url>">Utilizatori Sistem</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="home-admin.htm"> ListaLocatii</a></li>
                 </ul>
                 </div>
               </li>
@@ -196,7 +196,7 @@ for(Cookie cookie : cookies){
                       <c:forEach var= "loc" items="${locationList}">
                         <tr>                                                   
                           <td>
-                          <a class="button badge badge-success" href ="<c:url value='view-monthAccount.htm?month=${loc.month}&year=${loc.year }'/>">
+                          <a class="button badge badge-success" href ="<c:url value='admin-view-monthAccount.htm?month=${loc.month}&year=${loc.year }'/>">
                           <c:out value="${loc.month}"></c:out><c:out value="${loc.year}"></c:out></a>												
                           </td>                     
                         </tr>

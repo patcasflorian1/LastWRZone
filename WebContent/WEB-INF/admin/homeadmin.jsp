@@ -143,7 +143,8 @@ response.setIntHeader("Refresh", 60);
                   <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link" href="<c:url value="admin-view-company.htm"></c:url>">Profil Societate</a></li>                 
                     <li class="nav-item"> <a class="nav-link" href="<c:url value="admin-user-list.htm"></c:url>">Utilizatori Sistem</a></li> 
-                    <li class="nav-item"> <a class="nav-link" href="<c:url value="admin-register-list.htm"></c:url>">Registru Casa</a></li>              
+                    <li class="nav-item"> <a class="nav-link" href="<c:url value="admin-register-list.htm"></c:url>">Registru Casa</a></li>  
+                    <li class="nav-item"> <a class="nav-link" href="<c:url value="admin-month-list.htm"></c:url>">Istoric Lunar</a></li>             
                 </ul>
                 </div>
               </li>

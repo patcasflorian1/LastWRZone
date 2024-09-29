@@ -3,7 +3,11 @@ package org.eurovending.controller;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +18,8 @@ import org.eurovending.dao.CompanyDataDAO;
 import org.eurovending.dao.LocationCountersListDAO;
 import org.eurovending.dao.LocationCountersRegistersDAO;
 import org.eurovending.dao.LocationDAO;
+import org.eurovending.dao.LocationListRegisterDAO;
+import org.eurovending.dao.LocationMonthYearDAO;
 import org.eurovending.dao.UserDAO;
 import org.eurovending.dao.UserLocationListDAO;
 import org.eurovending.pojo.CompanyData;
@@ -324,4 +330,58 @@ public class AdminController {
 					 return new ModelAndView("redirect:/LoginOut.htm");
 				}
 				}
+			
+			//view month list
+			@RequestMapping(value="admin-month-list.htm")
+			public ModelAndView monthList(Model model) 
+					throws SQLException, ServletException, IOException {
+				
+				
+				boolean getMyUserNameIsOk = LoginController.isNotNullNotEmptyNotWhiteSpace(LoginController.getMyUserName());
+				if((LoginController.isLoginSuperAdmin() == true)&&(getMyUserNameIsOk==true)) {
+					
+					LocalDate currentdate = LocalDate.now();
+					Month currentMonth = currentdate.getMonth();	
+				   String actualYear =Integer.toString(currentdate.getYear());
+				  String actualMonth =currentMonth.getDisplayName( TextStyle.FULL_STANDALONE , Locale.forLanguageTag("ro") );
+					LocationListRegisterDAO usrLocListDao = new LocationListRegisterDAO();
+					ArrayList<Location> locationList = new ArrayList<Location>();
+					ArrayList<Location> newLocationList = new ArrayList<Location>();
+					locationList = usrLocListDao.getAllLocationListRegisters();
+					for(Location l : locationList) {
+						if(!l.getMonth().equalsIgnoreCase(actualMonth)||(!l.getYear().equalsIgnoreCase(actualYear))) {
+							newLocationList.add(l);
+						}
+					}
+					 model.addAttribute("locationList",newLocationList);
+					return new ModelAndView("WEB-INF/admin/location/monthlist.jsp","model",model);
+				}
+				else {
+					 LoginController.isLoginSuperAdmin = false;
+					 return new ModelAndView("redirect:/LoginOut.htm");
+				}
+				}
+			//view month list
+			@RequestMapping(value="admin-view-monthAccount.htm")
+			public ModelAndView viewMonthAccount(Model model,@ModelAttribute("month") String month,@ModelAttribute("year") String year) 
+					throws SQLException, ServletException, IOException {
+				LocationMonthYearDAO locCountListDao = new LocationMonthYearDAO();
+				ArrayList<Location> locationList = new ArrayList<Location>();
+				boolean getMyUserNameIsOk = LoginController.isNotNullNotEmptyNotWhiteSpace(LoginController.getMyUserName());
+				if((LoginController.isLoginSuperAdmin() == true)&&(getMyUserNameIsOk==true)) {
+					locationList = locCountListDao.getAllLocation(month, year);
+					SuperAdminController sc = new SuperAdminController();
+					 HallUtils hutls = new HallUtils();
+					double totlalMonthCount = hutls.totalMonthContor(locationList);
+					 model.addAttribute("month",month);
+					 model.addAttribute("year",year);
+					 model.addAttribute("totlalMonthCount",totlalMonthCount);				
+					model.addAttribute("locationList",locationList);
+					return new ModelAndView("WEB-INF/admin/location/view-monthAccount.jsp","model",model);
+				}
+				else {
+					 LoginController.isLoginSuperAdmin = false;
+					 return new ModelAndView("redirect:/LoginOut.htm");
+				}
+				}	
 }

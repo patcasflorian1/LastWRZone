@@ -129,7 +129,6 @@ response.setIntHeader("Refresh", 60);
               </div>
             </div>
           </div>
- 
  <!-- partial:partials/_sidebar.html -->
           <nav class="sidebar sidebar-offcanvas" id="sidebar">
             <ul class="nav">
@@ -137,6 +136,7 @@ response.setIntHeader("Refresh", 60);
                 <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                   <i class="typcn typcn-document-text menu-icon"></i>
                   <span class="menu-title">Contul Meu</span>
+                 
                   <i class="menu-arrow"></i>
                 </a>
                 <div class="collapse" id="ui-basic">
@@ -150,7 +150,8 @@ response.setIntHeader("Refresh", 60);
                         <li class="nav-item"> <a class="nav-link" href="<c:url value="super-admin-list.htm"></c:url>">SuperAdmini Sistem</a></li> 
                      <li class="nav-item"> <a class="nav-link" href="<c:url value="admin-list.htm"></c:url>">Admini Sistem</a></li>                    
                     <li class="nav-item"> <a class="nav-link" href="<c:url value="user-list.htm"></c:url>">Utilizatori Sistem</a></li> 
-                     <li class="nav-item"> <a class="nav-link" href="<c:url value="superadmin-register-list.htm"></c:url>">Registru Casa</a></li>              
+                     <li class="nav-item"> <a class="nav-link" href="<c:url value="superadmin-register-list.htm"></c:url>">Registru Casa</a></li>    
+                     <li class="nav-item"> <a class="nav-link" href="<c:url value="month-list.htm"></c:url>">Istoric Lunar</a></li>          
                 </ul>
                 </div>
               </li>
@@ -260,7 +261,7 @@ response.setIntHeader("Refresh", 60);
                 
                     <div class="d-sm-flex justify-content-center justify-content-sm-between">
                     <div class="container copyright">
-                       <p >© Copyrights <span id="year1"></span> <a href="#">EurovendingAPP</a>. All rights reserved.</p>
+                       <p >Â© Copyrights <span id="year1"></span> <a href="#">EurovendingAPP</a>. All rights reserved.</p>
                            </div>
                     </div>
                 </div>    

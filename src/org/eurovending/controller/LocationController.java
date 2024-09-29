@@ -18,6 +18,7 @@ import org.eurovending.dao.LocationCountersListDAO;
 import org.eurovending.dao.LocationCountersRegistersDAO;
 import org.eurovending.dao.LocationDAO;
 import org.eurovending.dao.LocationListRegisterDAO;
+import org.eurovending.dao.LocationMonthYearDAO;
 import org.eurovending.dao.UserDAO;
 import org.eurovending.pojo.Location;
 import org.eurovending.pojo.User;
@@ -136,6 +137,33 @@ public class LocationController {
 				 return new ModelAndView("redirect:/LoginOut.htm");
 			}
 			}
+		
+		//view month list
+		@RequestMapping(value="view-monthAccount.htm")
+		public ModelAndView viewMonthAccount(Model model,@ModelAttribute("month") String month,@ModelAttribute("year") String year) 
+				throws SQLException, ServletException, IOException {
+			LocationMonthYearDAO locCountListDao = new LocationMonthYearDAO();
+			ArrayList<Location> locationList = new ArrayList<Location>();
+			boolean getMyUserNameIsOk = LoginController.isNotNullNotEmptyNotWhiteSpace(LoginController.getMyUserName());
+			if((LoginController.isLoginSuperAdmin() == true)&&(getMyUserNameIsOk==true)) {
+				locationList = locCountListDao.getAllLocation(month, year);
+				SuperAdminController sc = new SuperAdminController();
+				 HallUtils hutls = new HallUtils();
+				double totlalMonthCount = hutls.totalMonthContor(locationList);
+				 model.addAttribute("month",month);
+				 model.addAttribute("year",year);
+				 model.addAttribute("totlalMonthCount",totlalMonthCount);				
+				model.addAttribute("locationList",locationList);
+				return new ModelAndView("WEB-INF/superadmin/location/view-monthAccount.jsp","model",model);
+			}
+			else {
+				 LoginController.isLoginSuperAdmin = false;
+				 return new ModelAndView("redirect:/LoginOut.htm");
+			}
+			}	
+		
+		
+		
 		//view month list
 				@RequestMapping(value="list-countLocation.htm")
 				public ModelAndView listCountLocation(Model model,@ModelAttribute("id") int idLoc) 
